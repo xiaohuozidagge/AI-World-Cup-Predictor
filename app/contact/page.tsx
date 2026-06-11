@@ -24,7 +24,7 @@ export default function ContactPage() {
         <Card>
           <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Mail className="h-5 w-5 text-sports-green" />Email</CardTitle></CardHeader>
           <CardContent className="text-sm text-muted-foreground">
-            <p>contact@aiworldcuppredictions.com</p>
+            <p>contact@aipredictor.world</p>
             <p className="mt-1 text-xs">We respond within 48 hours.</p>
           </CardContent>
         </Card>

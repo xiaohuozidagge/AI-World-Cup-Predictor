@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next"
 import { matches } from "@/data/matches"
 import { teams } from "@/data/teams"
+import { SITE_URL } from "@/lib/constants"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://aiworldcuppredictions.com"
+  const baseUrl = SITE_URL
 
   const staticRoutes = [
     { url: baseUrl, lastModified: "2026-06-11", changeFrequency: "daily" as const, priority: 1 },

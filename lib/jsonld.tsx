@@ -82,7 +82,7 @@ export function organizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "AI World Cup Predictions",
-    url: "https://aiworldcuppredictions.com",
+    url: "https://aipredictor.world",
     description: "AI-powered predictions and analysis for the 2026 FIFA World Cup.",
     foundingDate: "2025",
     contactPoint: {
