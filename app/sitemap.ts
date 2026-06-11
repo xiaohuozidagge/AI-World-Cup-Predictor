@@ -17,6 +17,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/how-we-predict`, lastModified: "2026-06-11", changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${baseUrl}/data-sources`, lastModified: "2026-06-11", changeFrequency: "monthly" as const, priority: 0.5 },
     { url: `${baseUrl}/contact`, lastModified: "2026-06-11", changeFrequency: "monthly" as const, priority: 0.5 },
+    { url: `${baseUrl}/2026-world-cup-group-predictions`, lastModified: "2026-06-11", changeFrequency: "weekly" as const, priority: 0.85 },
+    { url: `${baseUrl}/2026-world-cup-group-a-predictions`, lastModified: "2026-06-11", changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${baseUrl}/2026-world-cup-group-b-predictions`, lastModified: "2026-06-11", changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${baseUrl}/2026-world-cup-group-c-predictions`, lastModified: "2026-06-11", changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${baseUrl}/2026-world-cup-group-d-predictions`, lastModified: "2026-06-11", changeFrequency: "weekly" as const, priority: 0.8 },
   ]
 
   // Only group-stage matches with known teams get prediction pages indexed
