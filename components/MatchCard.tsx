@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Calendar, MapPin } from "lucide-react"
+import { Calendar, MapPin, Share2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ProbabilityBar } from "@/components/ProbabilityBar"
@@ -76,6 +76,13 @@ export function MatchCard({
               <span className="truncate">{stadium}</span>
             </div>
           </div>
+          {predictionSlug && (
+            <div className="mt-3 pt-3 border-t flex items-center justify-end">
+              <span className="text-[10px] text-muted-foreground flex items-center gap-1 group-hover:text-sports-green transition-colors">
+                <Share2 className="h-3 w-3" /> Share Prediction
+              </span>
+            </div>
+          )}
         </CardContent>
       </Card>
     </Link>

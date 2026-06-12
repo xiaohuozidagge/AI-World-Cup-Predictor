@@ -15,6 +15,7 @@ import { generatePrediction } from "@/lib/prediction-engine"
 import { SITE_URL } from "@/lib/constants"
 import { findSyncedMatchBySlug, isMatchFinished } from "@/lib/synced-data"
 import { getPredictionAccuracy, accuracyEmoji, accuracyColor } from "@/lib/predictionAccuracy"
+import { PredictionShareModule } from "@/components/PredictionShareModule"
 
 export async function generateStaticParams() {
   return matches
@@ -259,6 +260,27 @@ export default async function MatchPage({
 
           {/* FAQ */}
           <FAQSection faqs={resolvedPrediction.faq} />
+
+          {/* Share module — only for scheduled matches with known teams */}
+          {!isFinished && teamAData && teamBData && (
+            <PredictionShareModule
+              teamA={match.teamA}
+              teamB={match.teamB}
+              predictedScore={{
+                teamA: parseInt(resolvedPrediction.predictedScore.split("-")[0]) || 0,
+                teamB: parseInt(resolvedPrediction.predictedScore.split("-")[1]) || 0,
+              }}
+              probabilities={{
+                teamA: resolvedPrediction.teamAWinProbability,
+                draw: resolvedPrediction.drawProbability,
+                teamB: resolvedPrediction.teamBWinProbability,
+              }}
+              confidence={Math.abs(resolvedPrediction.teamAWinProbability - resolvedPrediction.teamBWinProbability) > 25 ? "High" : Math.abs(resolvedPrediction.teamAWinProbability - resolvedPrediction.teamBWinProbability) > 12 ? "Medium" : "Low"}
+              matchDate={match.date}
+              stadium={match.stadium}
+              url={`${SITE_URL}/match/${slug}`}
+            />
+          )}
         </div>
 
         {/* Sidebar */}
