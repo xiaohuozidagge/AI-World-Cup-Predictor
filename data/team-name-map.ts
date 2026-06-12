@@ -40,6 +40,7 @@ export const API_NAME_TO_SLUG: Record<string, string> = {
   "New Zealand": "new-zealand",
   "Spain": "spain",
   "Cape Verde": "cape-verde",
+  "Cape Verde Islands": "cape-verde",
   "Cabo Verde": "cape-verde",
   "Saudi Arabia": "saudi-arabia",
   "Uruguay": "uruguay",
