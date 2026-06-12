@@ -13,6 +13,8 @@ import { predictions, getPredictionBySlug } from "@/data/predictions"
 import { teams, getTeamBySlug } from "@/data/teams"
 import { generatePrediction } from "@/lib/prediction-engine"
 import { SITE_URL } from "@/lib/constants"
+import { findSyncedMatchBySlug, isMatchFinished } from "@/lib/synced-data"
+import { getPredictionAccuracy, accuracyEmoji, accuracyColor } from "@/lib/predictionAccuracy"
 
 export async function generateStaticParams() {
   return matches
@@ -67,6 +69,14 @@ export default async function MatchPage({
     : null)
   if (!resolvedPrediction) notFound()
 
+  // Check for synced actual result
+  const synced = findSyncedMatchBySlug(match.slug)
+  const isFinished = isMatchFinished(synced)
+  const actualScore = synced?.actualScore
+  const accuracy = isFinished && actualScore
+    ? getPredictionAccuracy(resolvedPrediction.predictedScore, actualScore)
+    : null
+
   // Related predictions (only group-stage matches with known teams)
   const teamAMatches = getMatchesByTeam(match.teamA).filter(m => m.predictionSlug && m.predictionSlug !== slug).slice(0, 2)
   const teamBMatches = getMatchesByTeam(match.teamB).filter(m => m.predictionSlug && m.predictionSlug !== slug).slice(0, 2)
@@ -103,7 +113,7 @@ export default async function MatchPage({
       <div className="mb-8">
         <Badge variant="secondary" className="mb-3">{match.stage} · Group {match.group !== "KO" && match.group !== "QF" && match.group !== "SF" && match.group !== "F" ? match.group : ""} {match.group === "KO" ? "Knockout" : match.group === "QF" ? "Quarterfinal" : match.group === "SF" ? "Semifinal" : match.group === "F" ? "Final" : ""}</Badge>
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
-          {match.teamA} vs {match.teamB} Prediction
+          {match.teamA} vs {match.teamB} {isFinished ? "Result" : "Prediction"}
         </h1>
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
           <span className="flex items-center gap-1"><Calendar className="h-4 w-4" /> {new Date(match.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</span>
@@ -137,6 +147,34 @@ export default async function MatchPage({
                   <div className="text-xs text-muted-foreground">#{teamBData?.fifaRanking || "?"} FIFA</div>
                 </div>
               </div>
+
+              {/* Actual score (finished matches) */}
+              {isFinished && actualScore && (
+                <div className="border-t pt-4 mt-4">
+                  <div className="text-center mb-3">
+                    <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Final Result</span>
+                  </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex-1 text-center">
+                      <span className="text-2xl font-extrabold">{actualScore.teamA}</span>
+                    </div>
+                    <div className="text-center">
+                      <span className="text-lg font-bold text-muted-foreground">-</span>
+                    </div>
+                    <div className="flex-1 text-center">
+                      <span className="text-2xl font-extrabold">{actualScore.teamB}</span>
+                    </div>
+                  </div>
+                  {accuracy && (
+                    <div className="text-center mt-3">
+                      <span className={`text-sm font-semibold ${accuracyColor(accuracy)}`}>
+                        {accuracyEmoji(accuracy)} {accuracy}
+                      </span>
+                      <span className="text-xs text-muted-foreground ml-2">Predicted: {resolvedPrediction.predictedScore}</span>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Probability bar */}
               <div>

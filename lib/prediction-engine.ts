@@ -16,6 +16,30 @@ function variant(hash: number, index: number, min: number, max: number): number 
   return min + v
 }
 
+// 13 allowed scorelines. Picks deterministically from probability-appropriate subset.
+function pickDeterministicScore(hash: number, aProb: number, drawProb: number, bProb: number): string {
+  // Expanded pools to keep any single score under 20%
+  const favoriteScores = ["2-0", "3-0", "3-1", "2-1", "1-0", "2-0", "3-0", "1-0"]  // slightly weight 2-0/3-0/1-0
+  const closeScores = ["2-1", "1-2", "1-1", "0-0", "2-2", "1-0", "0-1"]
+  const drawScores = ["1-1", "0-0", "2-2", "1-1"]
+  const underdogScores = ["0-1", "1-2", "0-2", "1-3", "0-3", "0-1", "1-2"]
+  const blowoutScores = ["3-0", "3-1", "2-0", "2-0", "3-0", "1-0", "2-1"]
+
+  let pool: string[]
+  if (drawProb > 28) {
+    pool = drawScores
+  } else if (aProb > bProb + 15) {
+    pool = aProb > 65 ? blowoutScores : favoriteScores
+  } else if (bProb > aProb + 15) {
+    pool = bProb > 65 ? blowoutScores.map(s => { const [a,b] = s.split("-"); return `${b}-${a}` }) : underdogScores
+  } else {
+    pool = closeScores
+  }
+
+  const idx = variant(hash, 6, 0, pool.length - 1)
+  return pool[idx]
+}
+
 export interface GeneratedPrediction {
   teamAWinProbability: number
   drawProbability: number
@@ -49,12 +73,7 @@ export function generatePrediction(
   const drawProb = Math.round(10 + variant(h, 1, 0, maxDraw - 10))
   const bProb = 100 - aProb - drawProb
 
-  const s1 = variant(h, 2, 0, 3)
-  const s2 = variant(h, 3, 0, 3)
-  let score: string
-  if (aProb > 55) score = `${Math.max(s1, 2)}-${Math.min(s2, 1)}`
-  else if (bProb > 55) score = `${Math.min(s1, 1)}-${Math.max(s2, 2)}`
-  else score = `${Math.max(s1, 1)}-${Math.max(s2, 1)}`
+  const score = pickDeterministicScore(h, aProb, drawProb, bProb)
 
   const analysis = generateAnalysis(teamA, teamB, aProb, rankingA, rankingB, stage)
   const form = generateForm(teamA, teamB, aProb, bProb)
