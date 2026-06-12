@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import Script from "next/script"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 import { JsonLd, organizationJsonLd } from "@/lib/jsonld"
@@ -62,6 +63,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <head>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-WHJD1T3GDX" />
+        <Script id="ga4-config">
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-WHJD1T3GDX');`}
+        </Script>
         <JsonLd data={organizationJsonLd()} />
         <script
           type="application/ld+json"
