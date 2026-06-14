@@ -1,13 +1,19 @@
 import Link from "next/link"
-import { ArrowRight, BarChart3, Brain, Search, Trophy, Zap } from "lucide-react"
+import { ArrowRight, BarChart3, Brain, Calendar, ChevronRight, Clock, Search, Trophy, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { MatchCard } from "@/components/MatchCard"
 import { TeamCard } from "@/components/TeamCard"
 import { FAQSection } from "@/components/FAQSection"
 import { getLatestPredictions } from "@/data/predictions"
 import { matches } from "@/data/matches"
+import { loadSyncedMatches } from "@/lib/synced-data"
+import { sortMatchesByKickoff } from "@/lib/sortMatches"
+import { getCountdown } from "@/lib/getCountdown"
+import { generatePrediction } from "@/lib/prediction-engine"
+import { predictions } from "@/data/predictions"
+import { getPredictionAccuracy, accuracyEmoji } from "@/lib/predictionAccuracy"
 import { teams } from "@/data/teams"
 import { JsonLd, faqJsonLd } from "@/lib/jsonld"
 
@@ -101,6 +107,9 @@ export default function HomePage() {
           </Card>
         </div>
       </section>
+
+      {/* Today's Match Timeline */}
+      <TodayTimeline />
 
       {/* Featured Match Predictions */}
       <section className="container mx-auto max-w-7xl px-4 py-12">
@@ -233,5 +242,115 @@ export default function HomePage() {
         <FAQSection faqs={homeFAQs} />
       </section>
     </div>
+  )
+}
+
+function TodayTimeline() {
+  const synced = loadSyncedMatches()
+  const gsMatches = matches.filter(m => m.stage === "Group Stage" && m.predictionSlug)
+  const enriched = gsMatches.map(m => {
+    const sm = synced.find(s =>
+      (s.teamA === m.teamA || s.teamASlug === m.teamA) &&
+      (s.teamB === m.teamB || s.teamBSlug === m.teamB)
+    )
+    return { ...m, synced: sm, utcDate: sm?.utcDate }
+  })
+  const sorted = sortMatchesByKickoff(enriched)
+
+  // Finished, live, next 6
+  const finished = sorted.filter(m => m.synced?.status === "finished").slice(-3)
+  const live = sorted.filter(m => m.synced?.status === "live")
+  const upcoming = sorted.filter(m => !m.synced?.status || m.synced.status === "scheduled").slice(0, 6)
+
+  const display = [...live, ...upcoming, ...finished].slice(0, 6)
+
+  if (display.length === 0) return null
+
+  return (
+    <section className="container mx-auto max-w-7xl px-4 py-12">
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h2 className="text-2xl font-bold">Today&apos;s Match Timeline</h2>
+          <p className="text-muted-foreground text-sm mt-1">Live scores, upcoming kickoffs, and recent results</p>
+        </div>
+        <Link href="/predictions">
+          <Button variant="outline" size="sm" className="hidden sm:flex">
+            <Calendar className="h-4 w-4 mr-1" /> Full Calendar <ChevronRight className="h-4 w-4 ml-1" />
+          </Button>
+        </Link>
+      </div>
+
+      <div className="space-y-2">
+        {display.map((m) => {
+          const pred = predictions.find(p => p.matchSlug === m.predictionSlug)
+          const teamA = teams.find(t => t.name === m.teamA)
+          const teamB = teams.find(t => t.name === m.teamB)
+          const fallback = (!pred && teamA && teamB)
+            ? generatePrediction(m.teamA, m.teamB, teamA.fifaRanking, teamB.fifaRanking, m.stage, m.group || "", m.date, m.stadium, m.city, teamA.keyPlayers, teamB.keyPlayers)
+            : null
+          const resolvedPred = pred || fallback
+          const isFinished = m.synced?.status === "finished"
+          const isLive = m.synced?.status === "live"
+          const actualScore = m.synced?.actualScore
+          const accuracy = isFinished && actualScore && resolvedPred
+            ? getPredictionAccuracy(resolvedPred.predictedScore, actualScore)
+            : null
+          const timeDisplay = m.utcDate
+            ? new Date(m.utcDate).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "UTC", hour12: true }) + " UTC"
+            : null
+          const countdown = m.utcDate && !isFinished ? getCountdown(m.utcDate) : null
+          const dateDisplay = new Date(m.date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" })
+
+          return (
+            <Link key={m.slug} href={`/match/${m.predictionSlug}`}>
+              <Card className="group hover:shadow-md hover:border-sports-green/50 transition-all cursor-pointer border-l-4 border-l-transparent hover:border-l-sports-green">
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-3">
+                    {/* Status */}
+                    <div className="w-14 flex-shrink-0 text-center">
+                      {isLive && <Badge className="bg-red-500 text-white text-[10px] animate-pulse">LIVE</Badge>}
+                      {isFinished && <Badge variant="secondary" className="text-[10px]">FT</Badge>}
+                      {!isFinished && !isLive && <Badge variant="outline" className="text-[10px]">{dateDisplay}</Badge>}
+                    </div>
+
+                    {/* Teams */}
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                      <span className="text-sm font-medium truncate">{m.teamA}</span>
+                      <span className="text-lg flex-shrink-0">{teamA?.flag}</span>
+                      <div className="text-center min-w-[40px]">
+                        {isFinished && actualScore ? (
+                          <span className="font-bold text-sm">{actualScore.teamA}-{actualScore.teamB}</span>
+                        ) : isLive && actualScore ? (
+                          <span className="font-bold text-sm text-red-500">{actualScore.teamA}-{actualScore.teamB}</span>
+                        ) : (
+                          <span className="text-xs text-sports-green font-medium">{resolvedPred?.predictedScore || "?-?"}</span>
+                        )}
+                      </div>
+                      <span className="text-lg flex-shrink-0">{teamB?.flag}</span>
+                      <span className="text-sm font-medium truncate">{m.teamB}</span>
+                    </div>
+
+                    {/* Time / Countdown */}
+                    <div className="text-right flex-shrink-0 text-xs">
+                      {timeDisplay && <div className="text-muted-foreground">{timeDisplay}</div>}
+                      {countdown && !isFinished && <div className="text-sports-green font-medium">{countdown}</div>}
+                      {accuracy && <div className="text-muted-foreground">{accuracyEmoji(accuracy)}</div>}
+                    </div>
+
+                    <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-sports-green transition-colors flex-shrink-0" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          )
+        })}
+      </div>
+
+      <div className="mt-4 text-center sm:hidden">
+        <Link href="/predictions">
+          <Button variant="outline" size="sm">Full Calendar <ChevronRight className="h-4 w-4 ml-1" /></Button>
+        </Link>
+      </div>
+    </section>
   )
 }
