@@ -151,9 +151,7 @@ export default async function PredictionsPage({
                     m={{
                       slug: m.matchSlug, predictionSlug: m.predictionSlug,
                       teamA: m.teamA, teamB: m.teamB, date: m.date, group: m.group, stage: m.stage,
-                      synced: loadSyncedMatches().find(s => s.teamASlug && s.teamBSlug &&
-                        teams.find(t => t.name === m.teamA)?.slug === s.teamASlug &&
-                        teams.find(t => t.name === m.teamB)?.slug === s.teamBSlug),
+                      synced: { status: "finished", utcDate: m.utcDate, actualScore: m.actualScore },
                     }}
                     isNext={false}
                   />
