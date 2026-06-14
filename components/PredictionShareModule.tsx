@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ProbabilityBar } from "@/components/ProbabilityBar"
+import { formatMatchTimeShort } from "@/lib/formatMatchTime"
 
 interface PredictionShareModuleProps {
   teamA: string
@@ -14,6 +15,7 @@ interface PredictionShareModuleProps {
   probabilities: { teamA: number; draw: number; teamB: number }
   confidence: "Low" | "Medium" | "High"
   matchDate: string
+  utcDate?: string
   stadium?: string
   url: string
 }
@@ -25,7 +27,7 @@ const confidenceColor: Record<string, string> = {
 }
 
 export function PredictionShareModule({
-  teamA, teamB, predictedScore, probabilities, confidence, matchDate, stadium, url,
+  teamA, teamB, predictedScore, probabilities, confidence, matchDate, utcDate, stadium, url,
 }: PredictionShareModuleProps) {
   const [copied, setCopied] = useState(false)
 
@@ -76,7 +78,7 @@ ${url}`
           </div>
           <ProbabilityBar a={probabilities.teamA} draw={probabilities.draw} b={probabilities.teamB} size="sm" />
           <div className="flex items-center justify-between mt-2 text-[10px] text-muted-foreground">
-            <span>{new Date(matchDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+            <span>{formatMatchTimeShort(matchDate).date}{utcDate ? ` · ${formatMatchTimeShort(matchDate, utcDate).time}` : ""}</span>
             {stadium && <span className="truncate max-w-40">{stadium}</span>}
             <Badge className={`text-[10px] px-1.5 py-0 ${confidenceColor[confidence]} text-white`}>
               {confidence} Confidence

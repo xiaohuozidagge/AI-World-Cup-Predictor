@@ -280,6 +280,7 @@ export default async function MatchPage({
               }}
               confidence={Math.abs(resolvedPrediction.teamAWinProbability - resolvedPrediction.teamBWinProbability) > 25 ? "High" : Math.abs(resolvedPrediction.teamAWinProbability - resolvedPrediction.teamBWinProbability) > 12 ? "Medium" : "Low"}
               matchDate={match.date}
+              utcDate={synced?.utcDate}
               stadium={match.stadium}
               url={`${SITE_URL}/match/${slug}`}
             />

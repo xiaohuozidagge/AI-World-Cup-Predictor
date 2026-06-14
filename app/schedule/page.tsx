@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Calendar, MapPin, ChevronRight } from "lucide-react"
+import { Calendar, Clock, MapPin, ChevronRight } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { matches } from "@/data/matches"
 import { teams } from "@/data/teams"
+import { lookupUtcDate } from "@/lib/synced-data"
 
 export const metadata: Metadata = {
   title: "World Cup 2026 Schedule: Fixtures, Dates, Stadiums & Match Predictions",
@@ -55,11 +56,12 @@ export default function SchedulePage() {
                         {groupMatches.map((match) => {
                           const teamA = teams.find(t => t.name === match.teamA)
                           const teamB = teams.find(t => t.name === match.teamB)
+                          const utcDate = lookupUtcDate(match.teamA, match.teamB)
                           return (
                             <Link key={match.slug} href={`/match/${encodeURIComponent(match.predictionSlug!)}`}>
                               <Card className="group hover:shadow-md hover:border-sports-green/50 transition-all duration-200 cursor-pointer">
                                 <CardContent className="p-4">
-                                  <ScheduleRow match={match} teamA={teamA} teamB={teamB} />
+                                  <ScheduleRow match={match} teamA={teamA} teamB={teamB} utcDate={utcDate} />
                                 </CardContent>
                               </Card>
                             </Link>
@@ -78,7 +80,7 @@ export default function SchedulePage() {
                         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                           <div className="text-center sm:text-left sm:w-32 flex-shrink-0">
                             <div className="text-sm font-bold">
-                              {new Date(match.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                              {new Date(match.date).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}
                             </div>
                             <div className="text-xs text-muted-foreground">{match.city}</div>
                           </div>
@@ -106,13 +108,20 @@ export default function SchedulePage() {
   )
 }
 
-function ScheduleRow({ match, teamA, teamB }: { match: typeof matches[0]; teamA?: typeof teams[0]; teamB?: typeof teams[0] }) {
+function ScheduleRow({ match, teamA, teamB, utcDate }: { match: typeof matches[0]; teamA?: typeof teams[0]; teamB?: typeof teams[0]; utcDate?: string }) {
+  const date = new Date(match.date)
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-3">
       <div className="text-center sm:text-left sm:w-32 flex-shrink-0">
         <div className="text-sm font-bold">
-          {new Date(match.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+          {date.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}
         </div>
+        {utcDate && (
+          <div className="text-xs text-muted-foreground flex items-center justify-center sm:justify-start gap-1">
+            <Clock className="h-3 w-3" />
+            {new Date(utcDate).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "UTC", hour12: true })} UTC
+          </div>
+        )}
         <div className="text-xs text-muted-foreground">{match.city}</div>
       </div>
       <div className="flex items-center gap-3 flex-1 min-w-0">
