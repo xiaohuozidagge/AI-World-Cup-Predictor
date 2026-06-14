@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, BarChart3, Brain, Calendar, ChevronRight, Clock, Search, Trophy, Zap } from "lucide-react"
+import { ArrowRight, BarChart3, Brain, Calendar, ChevronRight, Clock, Search, Target, Trophy, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -14,6 +14,7 @@ import { getCountdown } from "@/lib/getCountdown"
 import { generatePrediction } from "@/lib/prediction-engine"
 import { predictions } from "@/data/predictions"
 import { getPredictionAccuracy, accuracyEmoji } from "@/lib/predictionAccuracy"
+import { getPredictionStats } from "@/lib/predictionStats"
 import { teams } from "@/data/teams"
 import { JsonLd, faqJsonLd } from "@/lib/jsonld"
 
@@ -83,29 +84,7 @@ export default function HomePage() {
 
       {/* Features */}
       <section className="container mx-auto max-w-7xl px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="border-sports-green/20">
-            <CardHeader>
-              <Brain className="h-8 w-8 text-sports-green mb-2" />
-              <CardTitle className="text-lg">AI-Powered Predictions</CardTitle>
-              <CardDescription>Advanced machine learning models analyze match data, form, and historical patterns to generate accurate forecasts.</CardDescription>
-            </CardHeader>
-          </Card>
-          <Card className="border-sports-blue/20">
-            <CardHeader>
-              <BarChart3 className="h-8 w-8 text-sports-blue mb-2" />
-              <CardTitle className="text-lg">Win Probability Analysis</CardTitle>
-              <CardDescription>Every match comes with detailed win/draw/loss probabilities and predicted scorelines backed by data.</CardDescription>
-            </CardHeader>
-          </Card>
-          <Card className="border-sports-gold/20">
-            <CardHeader>
-              <Trophy className="h-8 w-8 text-sports-gold mb-2" />
-              <CardTitle className="text-lg">Winner & Dark Horse Odds</CardTitle>
-              <CardDescription>Complete championship probability table covering all 48 teams from favorites to dark horses.</CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"><AIStatsCard /></div>
       </section>
 
       {/* Today's Match Timeline */}
@@ -242,6 +221,57 @@ export default function HomePage() {
         <FAQSection faqs={homeFAQs} />
       </section>
     </div>
+  )
+}
+
+function AIStatsCard() {
+  const stats = getPredictionStats()
+  return (
+    <>
+      <Card className="border-sports-green/20">
+        <CardHeader>
+          <Brain className="h-8 w-8 text-sports-green mb-2" />
+          <CardTitle className="text-lg">AI-Powered Predictions</CardTitle>
+          <CardDescription>Advanced machine learning models analyze match data, form, and historical patterns to generate accurate forecasts.</CardDescription>
+        </CardHeader>
+      </Card>
+      <Card className="border-sports-blue/20">
+        <CardHeader>
+          <BarChart3 className="h-8 w-8 text-sports-blue mb-2" />
+          <CardTitle className="text-lg">Win Probability Analysis</CardTitle>
+          <CardDescription>Every match comes with detailed win/draw/loss probabilities and predicted scorelines backed by data.</CardDescription>
+        </CardHeader>
+      </Card>
+      <Card className="border-sports-gold/20">
+        <CardHeader>
+          <Trophy className="h-8 w-8 text-sports-gold mb-2" />
+          <CardTitle className="text-lg">Winner & Dark Horse Odds</CardTitle>
+          <CardDescription>Complete championship probability table covering all 48 teams from favorites to dark horses.</CardDescription>
+        </CardHeader>
+      </Card>
+      {stats.totalPredictions > 0 ? (
+        <Link href="/ai-track-record">
+          <Card className="border-sports-green/40 hover:shadow-md hover:border-sports-green transition-all cursor-pointer h-full">
+            <CardHeader>
+              <Target className="h-8 w-8 text-sports-green mb-2" />
+              <CardTitle className="text-lg">AI Track Record</CardTitle>
+              <CardDescription>
+                <span className="block">{stats.correctWinners} correct · {stats.totalPredictions - stats.correctWinners} missed</span>
+                <span className="block mt-1 text-lg font-bold text-sports-green">{stats.accuracy}% accuracy</span>
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </Link>
+      ) : (
+        <Card className="border-muted/20">
+          <CardHeader>
+            <Target className="h-8 w-8 text-muted-foreground/30 mb-2" />
+            <CardTitle className="text-lg">AI Track Record</CardTitle>
+            <CardDescription>Accuracy data will appear once matches are completed.</CardDescription>
+          </CardHeader>
+        </Card>
+      )}
+    </>
   )
 }
 

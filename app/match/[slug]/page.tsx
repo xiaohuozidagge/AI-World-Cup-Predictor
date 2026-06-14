@@ -175,6 +175,11 @@ export default async function MatchPage({
                         {accuracyEmoji(accuracy)} {accuracy}
                       </span>
                       <span className="text-xs text-muted-foreground ml-2">Predicted: {resolvedPrediction.predictedScore}</span>
+                      <div className="mt-2">
+                        <Link href="/ai-track-record" className="text-xs text-sports-green hover:underline">
+                          View Full AI Record →
+                        </Link>
+                      </div>
                     </div>
                   )}
                 </div>
