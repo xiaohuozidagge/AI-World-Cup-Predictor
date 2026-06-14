@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { Calendar, MapPin, Star, TrendingUp, ChevronRight } from "lucide-react"
+import { Calendar, Clock, MapPin, Star, TrendingUp, ChevronRight } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ProbabilityBar } from "@/components/ProbabilityBar"
@@ -117,7 +117,10 @@ export default async function MatchPage({
           {match.teamA} vs {match.teamB} {isFinished ? "Result" : "Prediction"}
         </h1>
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1"><Calendar className="h-4 w-4" /> {new Date(match.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</span>
+          <span className="flex items-center gap-1"><Calendar className="h-4 w-4" /> {new Date(match.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}</span>
+          {synced?.utcDate && (
+            <span className="flex items-center gap-1"><Clock className="h-4 w-4" /> {new Date(synced.utcDate).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "UTC", hour12: true })} UTC</span>
+          )}
           <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {match.stadium}, {match.city}</span>
         </div>
       </div>

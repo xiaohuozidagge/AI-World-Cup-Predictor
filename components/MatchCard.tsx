@@ -1,12 +1,14 @@
 import Link from "next/link"
-import { Calendar, MapPin, Share2 } from "lucide-react"
+import { Calendar, Clock, MapPin, Share2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ProbabilityBar } from "@/components/ProbabilityBar"
+import { formatMatchTimeShort } from "@/lib/formatMatchTime"
 
 interface MatchCardProps {
   matchSlug?: string
   predictionSlug?: string
+  utcDate?: string
   teamA: string
   teamB: string
   date: string
@@ -22,6 +24,7 @@ interface MatchCardProps {
 
 export function MatchCard({
   predictionSlug,
+  utcDate,
   teamA,
   teamB,
   date,
@@ -69,8 +72,14 @@ export function MatchCard({
           <div className="flex flex-col gap-1 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
               <Calendar className="h-3 w-3" />
-              <span>{new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+              <span>{formatMatchTimeShort(date, utcDate).date}</span>
             </div>
+            {utcDate && (
+              <div className="flex items-center gap-1">
+                <Clock className="h-3 w-3" />
+                <span>{formatMatchTimeShort(date, utcDate).time}</span>
+              </div>
+            )}
             <div className="flex items-center gap-1">
               <MapPin className="h-3 w-3" />
               <span className="truncate">{stadium}</span>

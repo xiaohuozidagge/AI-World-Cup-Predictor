@@ -33,3 +33,13 @@ export function findSyncedMatchBySlug(slug: string): SyncedMatch | undefined {
 export function isMatchFinished(synced?: SyncedMatch): boolean {
   return synced?.status === "finished" && !!synced.actualScore
 }
+
+export function lookupUtcDate(teamA: string, teamB: string): string | undefined {
+  const synced = loadSyncedMatches()
+  const match = synced.find(m => {
+    const aMatch = m.teamA === teamA || m.teamASlug === teamA
+    const bMatch = m.teamB === teamB || m.teamBSlug === teamB
+    return aMatch && bMatch
+  })
+  return match?.utcDate
+}

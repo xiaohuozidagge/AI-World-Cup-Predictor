@@ -7,6 +7,7 @@ import { matches } from "@/data/matches"
 import { predictions } from "@/data/predictions"
 import { teams } from "@/data/teams"
 import { generatePrediction } from "@/lib/prediction-engine"
+import { lookupUtcDate } from "@/lib/synced-data"
 
 export const metadata: Metadata = {
   title: "World Cup 2026 Match Predictions — All Fixtures",
@@ -107,6 +108,7 @@ export default async function PredictionsPage({
               key={match.slug}
               matchSlug={match.slug}
               predictionSlug={match.predictionSlug}
+              utcDate={lookupUtcDate(match.teamA, match.teamB)}
               teamA={match.teamA}
               teamB={match.teamB}
               date={match.date}
