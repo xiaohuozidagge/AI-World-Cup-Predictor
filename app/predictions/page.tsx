@@ -119,7 +119,6 @@ export default async function PredictionsPage({
               name="group"
               defaultValue={groupFilter}
               className="rounded-md border border-input bg-background px-3 py-1 text-sm"
-              onChange={(e) => { (e.target.form as HTMLFormElement)?.requestSubmit() }}
             >
               <option value="">All Groups</option>
               {GROUPS.map(g => <option key={g} value={g}>Group {g}</option>)}
