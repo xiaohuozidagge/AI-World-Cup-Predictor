@@ -13,9 +13,10 @@ import { predictions, getPredictionBySlug } from "@/data/predictions"
 import { teams, getTeamBySlug } from "@/data/teams"
 import { generatePrediction } from "@/lib/prediction-engine"
 import { SITE_URL } from "@/lib/constants"
-import { findSyncedMatchBySlug, isMatchFinished } from "@/lib/synced-data"
+import { findSyncedMatchBySlug, isMatchFinished, loadSyncedMatches } from "@/lib/synced-data"
 import { getPredictionAccuracy, accuracyEmoji, accuracyColor } from "@/lib/predictionAccuracy"
 import { PredictionShareModule } from "@/components/PredictionShareModule"
+import { getRelatedMatches } from "@/lib/getRelatedMatches"
 
 export async function generateStaticParams() {
   return matches
@@ -78,10 +79,8 @@ export default async function MatchPage({
     ? getPredictionAccuracy(resolvedPrediction.predictedScore, actualScore)
     : null
 
-  // Related predictions (only group-stage matches with known teams)
-  const teamAMatches = getMatchesByTeam(match.teamA).filter(m => m.predictionSlug && m.predictionSlug !== slug).slice(0, 2)
-  const teamBMatches = getMatchesByTeam(match.teamB).filter(m => m.predictionSlug && m.predictionSlug !== slug).slice(0, 2)
-  const relatedMatches = [...new Map([...teamAMatches, ...teamBMatches].map(m => [m.slug, m])).values()].slice(0, 3)
+  // Related predictions
+  const relatedMatches = getRelatedMatches(slug, 4)
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-8">
@@ -339,29 +338,64 @@ export default async function MatchPage({
       {/* Related Predictions */}
       {relatedMatches.length > 0 && (
         <section className="mt-12 pt-8 border-t">
-          <h2 className="text-2xl font-bold mb-6">Related Predictions</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold">Related Predictions</h2>
+            <p className="text-muted-foreground text-sm mt-1">You may also like these upcoming World Cup matches</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {relatedMatches.map((rm) => {
-              const rp = predictions.find(p => p.matchSlug === rm.predictionSlug)
+              const pred = predictions.find(p => p.matchSlug === rm.predictionSlug)
               const ta = teams.find(t => t.name === rm.teamA)
               const tb = teams.find(t => t.name === rm.teamB)
+              const fallback = (!pred && ta && tb)
+                ? generatePrediction(rm.teamA, rm.teamB, ta.fifaRanking, tb.fifaRanking, rm.stage, rm.group || "", rm.date, rm.stadium, rm.city, ta.keyPlayers, tb.keyPlayers)
+                : null
+              const resolvedPred = pred || fallback
+              const isFinished = loadSyncedMatches().find(s => s.teamASlug === ta?.slug && s.teamBSlug === tb?.slug)?.status === "finished"
+              const timeDisplay = rm.utcDate
+                ? new Date(rm.utcDate).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "UTC", hour12: true }) + " UTC"
+                : null
+              const confidence = resolvedPred
+                ? Math.abs(resolvedPred.teamAWinProbability - resolvedPred.teamBWinProbability) > 25 ? "High" : Math.abs(resolvedPred.teamAWinProbability - resolvedPred.teamBWinProbability) > 12 ? "Medium" : "Low"
+                : "Medium"
+
               return (
-                <MatchCard
-                  key={rm.slug}
-                  matchSlug={rm.slug}
-                  predictionSlug={rm.predictionSlug}
-                  teamA={rm.teamA}
-                  teamB={rm.teamB}
-                  date={rm.date}
-                  stadium={rm.stadium}
-                  stage={rm.stage}
-                  teamAFlag={ta?.flag}
-                  teamBFlag={tb?.flag}
-                  teamAProb={rp?.teamAWinProbability}
-                  drawProb={rp?.drawProbability}
-                  teamBProb={rp?.teamBWinProbability}
-                  predictedScore={rp?.predictedScore}
-                />
+                <Link key={rm.predictionSlug} href={`/match/${rm.predictionSlug}`}>
+                  <Card className="group hover:shadow-md hover:border-sports-green/50 transition-all cursor-pointer h-full">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">{ta?.flag}</span>
+                          <span className="font-medium text-sm">{rm.teamA}</span>
+                        </div>
+                        <span className="text-xs text-muted-foreground">vs</span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium text-sm">{rm.teamB}</span>
+                          <span className="text-lg">{tb?.flag}</span>
+                        </div>
+                      </div>
+
+                      {resolvedPred && (
+                        <div className="text-center mb-2">
+                          <span className="text-lg font-bold text-sports-green">{resolvedPred.predictedScore}</span>
+                          <span className="text-xs text-muted-foreground ml-2">Predicted</span>
+                        </div>
+                      )}
+
+                      <div className="flex flex-wrap items-center gap-2 text-[10px] text-muted-foreground mb-2">
+                        {timeDisplay && <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{timeDisplay}</span>}
+                        <Badge className={`text-[10px] px-1.5 py-0 ${confidence === "High" ? "bg-sports-green text-white" : confidence === "Medium" ? "bg-sports-blue text-white" : "bg-sports-gold text-white"}`}>
+                          {confidence} Confidence
+                        </Badge>
+                        {isFinished && <Badge variant="secondary" className="text-[10px]">Finished</Badge>}
+                      </div>
+
+                      <div className="text-xs text-sports-green font-medium group-hover:underline text-right">
+                        View Prediction →
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               )
             })}
           </div>
