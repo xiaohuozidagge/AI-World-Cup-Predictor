@@ -366,6 +366,34 @@
   {
     "group": "",
     "position": 27,
+    "team": "Portugal",
+    "teamSlug": "portugal",
+    "played": 1,
+    "won": 0,
+    "draw": 1,
+    "lost": 0,
+    "goalsFor": 1,
+    "goalsAgainst": 1,
+    "goalDifference": 0,
+    "points": 1
+  },
+  {
+    "group": "",
+    "position": 28,
+    "team": "Congo DR",
+    "teamSlug": "dr-congo",
+    "played": 1,
+    "won": 0,
+    "draw": 1,
+    "lost": 0,
+    "goalsFor": 1,
+    "goalsAgainst": 1,
+    "goalDifference": 0,
+    "points": 1
+  },
+  {
+    "group": "",
+    "position": 29,
     "team": "Spain",
     "teamSlug": "spain",
     "played": 1,
@@ -379,7 +407,7 @@
   },
   {
     "group": "",
-    "position": 28,
+    "position": 30,
     "team": "Cape Verde Islands",
     "teamSlug": "cape-verde",
     "played": 1,
@@ -390,34 +418,6 @@
     "goalsAgainst": 0,
     "goalDifference": 0,
     "points": 1
-  },
-  {
-    "group": "",
-    "position": 29,
-    "team": "Portugal",
-    "teamSlug": "portugal",
-    "played": 0,
-    "won": 0,
-    "draw": 0,
-    "lost": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0,
-    "goalDifference": 0,
-    "points": 0
-  },
-  {
-    "group": "",
-    "position": 30,
-    "team": "Congo DR",
-    "teamSlug": "dr-congo",
-    "played": 0,
-    "won": 0,
-    "draw": 0,
-    "lost": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0,
-    "goalDifference": 0,
-    "points": 0
   },
   {
     "group": "",
