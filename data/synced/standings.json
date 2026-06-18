@@ -466,18 +466,32 @@
     "position": 34,
     "team": "Czechia",
     "teamSlug": "czech-republic",
-    "played": 1,
+    "played": 2,
     "won": 0,
-    "draw": 0,
+    "draw": 1,
     "lost": 1,
-    "goalsFor": 1,
-    "goalsAgainst": 2,
+    "goalsFor": 2,
+    "goalsAgainst": 3,
     "goalDifference": -1,
-    "points": 0
+    "points": 1
   },
   {
     "group": "",
     "position": 35,
+    "team": "South Africa",
+    "teamSlug": "south-africa",
+    "played": 2,
+    "won": 0,
+    "draw": 1,
+    "lost": 1,
+    "goalsFor": 1,
+    "goalsAgainst": 3,
+    "goalDifference": -2,
+    "points": 1
+  },
+  {
+    "group": "",
+    "position": 36,
     "team": "Haiti",
     "teamSlug": "haiti",
     "played": 1,
@@ -491,7 +505,7 @@
   },
   {
     "group": "",
-    "position": 36,
+    "position": 37,
     "team": "Ecuador",
     "teamSlug": "ecuador",
     "played": 1,
@@ -505,7 +519,7 @@
   },
   {
     "group": "",
-    "position": 37,
+    "position": 38,
     "team": "Panama",
     "teamSlug": "panama",
     "played": 1,
@@ -519,7 +533,7 @@
   },
   {
     "group": "",
-    "position": 38,
+    "position": 39,
     "team": "Croatia",
     "teamSlug": "croatia",
     "played": 1,
@@ -533,7 +547,7 @@
   },
   {
     "group": "",
-    "position": 39,
+    "position": 40,
     "team": "Senegal",
     "teamSlug": "senegal",
     "played": 1,
@@ -547,7 +561,7 @@
   },
   {
     "group": "",
-    "position": 40,
+    "position": 41,
     "team": "Jordan",
     "teamSlug": "jordan",
     "played": 1,
@@ -561,7 +575,7 @@
   },
   {
     "group": "",
-    "position": 41,
+    "position": 42,
     "team": "Uzbekistan",
     "teamSlug": "uzbekistan",
     "played": 1,
@@ -570,20 +584,6 @@
     "lost": 1,
     "goalsFor": 1,
     "goalsAgainst": 3,
-    "goalDifference": -2,
-    "points": 0
-  },
-  {
-    "group": "",
-    "position": 42,
-    "team": "South Africa",
-    "teamSlug": "south-africa",
-    "played": 1,
-    "won": 0,
-    "draw": 0,
-    "lost": 1,
-    "goalsFor": 0,
-    "goalsAgainst": 2,
     "goalDifference": -2,
     "points": 0
   },
