@@ -2,6 +2,20 @@
   {
     "group": "",
     "position": 1,
+    "team": "United States",
+    "teamSlug": "united-states",
+    "played": 2,
+    "won": 2,
+    "draw": 0,
+    "lost": 0,
+    "goalsFor": 6,
+    "goalsAgainst": 1,
+    "goalDifference": 5,
+    "points": 6
+  },
+  {
+    "group": "",
+    "position": 2,
     "team": "Mexico",
     "teamSlug": "mexico",
     "played": 2,
@@ -15,7 +29,7 @@
   },
   {
     "group": "",
-    "position": 2,
+    "position": 3,
     "team": "Canada",
     "teamSlug": "canada",
     "played": 2,
@@ -29,7 +43,7 @@
   },
   {
     "group": "",
-    "position": 3,
+    "position": 4,
     "team": "Switzerland",
     "teamSlug": "switzerland",
     "played": 2,
@@ -43,7 +57,7 @@
   },
   {
     "group": "",
-    "position": 4,
+    "position": 5,
     "team": "Germany",
     "teamSlug": "germany",
     "played": 1,
@@ -57,7 +71,7 @@
   },
   {
     "group": "",
-    "position": 5,
+    "position": 6,
     "team": "Sweden",
     "teamSlug": "sweden",
     "played": 1,
@@ -67,20 +81,6 @@
     "goalsFor": 5,
     "goalsAgainst": 1,
     "goalDifference": 4,
-    "points": 3
-  },
-  {
-    "group": "",
-    "position": 6,
-    "team": "United States",
-    "teamSlug": "united-states",
-    "played": 1,
-    "won": 1,
-    "draw": 0,
-    "lost": 0,
-    "goalsFor": 4,
-    "goalsAgainst": 1,
-    "goalDifference": 3,
     "points": 3
   },
   {
@@ -170,20 +170,6 @@
   {
     "group": "",
     "position": 13,
-    "team": "Australia",
-    "teamSlug": "australia",
-    "played": 1,
-    "won": 1,
-    "draw": 0,
-    "lost": 0,
-    "goalsFor": 2,
-    "goalsAgainst": 0,
-    "goalDifference": 2,
-    "points": 3
-  },
-  {
-    "group": "",
-    "position": 14,
     "team": "Scotland",
     "teamSlug": "scotland",
     "played": 1,
@@ -197,7 +183,7 @@
   },
   {
     "group": "",
-    "position": 15,
+    "position": 14,
     "team": "Ivory Coast",
     "teamSlug": "ivory-coast",
     "played": 1,
@@ -211,7 +197,7 @@
   },
   {
     "group": "",
-    "position": 16,
+    "position": 15,
     "team": "Ghana",
     "teamSlug": "ghana",
     "played": 1,
@@ -225,9 +211,23 @@
   },
   {
     "group": "",
-    "position": 17,
+    "position": 16,
     "team": "South Korea",
     "teamSlug": "south-korea",
+    "played": 2,
+    "won": 1,
+    "draw": 0,
+    "lost": 1,
+    "goalsFor": 2,
+    "goalsAgainst": 2,
+    "goalDifference": 0,
+    "points": 3
+  },
+  {
+    "group": "",
+    "position": 17,
+    "team": "Australia",
+    "teamSlug": "australia",
     "played": 2,
     "won": 1,
     "draw": 0,
