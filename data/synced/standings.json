@@ -44,6 +44,20 @@
   {
     "group": "",
     "position": 4,
+    "team": "Netherlands",
+    "teamSlug": "netherlands",
+    "played": 2,
+    "won": 1,
+    "draw": 1,
+    "lost": 0,
+    "goalsFor": 7,
+    "goalsAgainst": 3,
+    "goalDifference": 4,
+    "points": 4
+  },
+  {
+    "group": "",
+    "position": 5,
     "team": "Switzerland",
     "teamSlug": "switzerland",
     "played": 2,
@@ -57,7 +71,7 @@
   },
   {
     "group": "",
-    "position": 5,
+    "position": 6,
     "team": "Brazil",
     "teamSlug": "brazil",
     "played": 2,
@@ -71,7 +85,7 @@
   },
   {
     "group": "",
-    "position": 6,
+    "position": 7,
     "team": "Morocco",
     "teamSlug": "morocco",
     "played": 2,
@@ -85,7 +99,7 @@
   },
   {
     "group": "",
-    "position": 7,
+    "position": 8,
     "team": "Germany",
     "teamSlug": "germany",
     "played": 1,
@@ -95,20 +109,6 @@
     "goalsFor": 7,
     "goalsAgainst": 1,
     "goalDifference": 6,
-    "points": 3
-  },
-  {
-    "group": "",
-    "position": 8,
-    "team": "Sweden",
-    "teamSlug": "sweden",
-    "played": 1,
-    "won": 1,
-    "draw": 0,
-    "lost": 0,
-    "goalsFor": 5,
-    "goalsAgainst": 1,
-    "goalDifference": 4,
     "points": 3
   },
   {
@@ -226,6 +226,20 @@
   {
     "group": "",
     "position": 17,
+    "team": "Sweden",
+    "teamSlug": "sweden",
+    "played": 2,
+    "won": 1,
+    "draw": 0,
+    "lost": 1,
+    "goalsFor": 6,
+    "goalsAgainst": 6,
+    "goalDifference": 0,
+    "points": 3
+  },
+  {
+    "group": "",
+    "position": 18,
     "team": "South Korea",
     "teamSlug": "south-korea",
     "played": 2,
@@ -239,7 +253,7 @@
   },
   {
     "group": "",
-    "position": 18,
+    "position": 19,
     "team": "Australia",
     "teamSlug": "australia",
     "played": 2,
@@ -253,7 +267,7 @@
   },
   {
     "group": "",
-    "position": 19,
+    "position": 20,
     "team": "Scotland",
     "teamSlug": "scotland",
     "played": 2,
@@ -267,7 +281,7 @@
   },
   {
     "group": "",
-    "position": 20,
+    "position": 21,
     "team": "Paraguay",
     "teamSlug": "paraguay",
     "played": 2,
@@ -278,20 +292,6 @@
     "goalsAgainst": 4,
     "goalDifference": -2,
     "points": 3
-  },
-  {
-    "group": "",
-    "position": 21,
-    "team": "Netherlands",
-    "teamSlug": "netherlands",
-    "played": 1,
-    "won": 0,
-    "draw": 1,
-    "lost": 0,
-    "goalsFor": 2,
-    "goalsAgainst": 2,
-    "goalDifference": 0,
-    "points": 1
   },
   {
     "group": "",
