@@ -60,13 +60,13 @@
     "position": 5,
     "team": "Germany",
     "teamSlug": "germany",
-    "played": 2,
+    "played": 3,
     "won": 2,
     "draw": 0,
-    "lost": 0,
-    "goalsFor": 9,
-    "goalsAgainst": 2,
-    "goalDifference": 7,
+    "lost": 1,
+    "goalsFor": 10,
+    "goalsAgainst": 4,
+    "goalDifference": 6,
     "points": 6
   },
   {
@@ -142,6 +142,20 @@
   {
     "group": "",
     "position": 11,
+    "team": "Ivory Coast",
+    "teamSlug": "ivory-coast",
+    "played": 3,
+    "won": 2,
+    "draw": 0,
+    "lost": 1,
+    "goalsFor": 4,
+    "goalsAgainst": 2,
+    "goalDifference": 2,
+    "points": 6
+  },
+  {
+    "group": "",
+    "position": 12,
     "team": "Canada",
     "teamSlug": "canada",
     "played": 3,
@@ -155,7 +169,7 @@
   },
   {
     "group": "",
-    "position": 12,
+    "position": 13,
     "team": "Portugal",
     "teamSlug": "portugal",
     "played": 2,
@@ -169,7 +183,7 @@
   },
   {
     "group": "",
-    "position": 13,
+    "position": 14,
     "team": "Netherlands",
     "teamSlug": "netherlands",
     "played": 2,
@@ -183,7 +197,7 @@
   },
   {
     "group": "",
-    "position": 14,
+    "position": 15,
     "team": "Japan",
     "teamSlug": "japan",
     "played": 2,
@@ -197,7 +211,7 @@
   },
   {
     "group": "",
-    "position": 15,
+    "position": 16,
     "team": "Spain",
     "teamSlug": "spain",
     "played": 2,
@@ -211,7 +225,7 @@
   },
   {
     "group": "",
-    "position": 16,
+    "position": 17,
     "team": "Egypt",
     "teamSlug": "egypt",
     "played": 2,
@@ -225,7 +239,7 @@
   },
   {
     "group": "",
-    "position": 17,
+    "position": 18,
     "team": "England",
     "teamSlug": "england",
     "played": 2,
@@ -239,7 +253,7 @@
   },
   {
     "group": "",
-    "position": 18,
+    "position": 19,
     "team": "Ghana",
     "teamSlug": "ghana",
     "played": 2,
@@ -253,7 +267,21 @@
   },
   {
     "group": "",
-    "position": 19,
+    "position": 20,
+    "team": "Ecuador",
+    "teamSlug": "ecuador",
+    "played": 3,
+    "won": 1,
+    "draw": 1,
+    "lost": 1,
+    "goalsFor": 2,
+    "goalsAgainst": 2,
+    "goalDifference": 0,
+    "points": 4
+  },
+  {
+    "group": "",
+    "position": 21,
     "team": "Bosnia-Herzegovina",
     "teamSlug": "bosnia-herzegovina",
     "played": 3,
@@ -267,7 +295,7 @@
   },
   {
     "group": "",
-    "position": 20,
+    "position": 22,
     "team": "South Africa",
     "teamSlug": "south-africa",
     "played": 3,
@@ -281,7 +309,7 @@
   },
   {
     "group": "",
-    "position": 21,
+    "position": 23,
     "team": "Sweden",
     "teamSlug": "sweden",
     "played": 2,
@@ -295,7 +323,7 @@
   },
   {
     "group": "",
-    "position": 22,
+    "position": 24,
     "team": "Austria",
     "teamSlug": "austria",
     "played": 2,
@@ -309,7 +337,7 @@
   },
   {
     "group": "",
-    "position": 23,
+    "position": 25,
     "team": "Australia",
     "teamSlug": "australia",
     "played": 2,
@@ -323,21 +351,7 @@
   },
   {
     "group": "",
-    "position": 24,
-    "team": "Ivory Coast",
-    "teamSlug": "ivory-coast",
-    "played": 2,
-    "won": 1,
-    "draw": 0,
-    "lost": 1,
-    "goalsFor": 2,
-    "goalsAgainst": 2,
-    "goalDifference": 0,
-    "points": 3
-  },
-  {
-    "group": "",
-    "position": 25,
+    "position": 26,
     "team": "Croatia",
     "teamSlug": "croatia",
     "played": 2,
@@ -351,7 +365,7 @@
   },
   {
     "group": "",
-    "position": 26,
+    "position": 27,
     "team": "South Korea",
     "teamSlug": "south-korea",
     "played": 3,
@@ -365,7 +379,7 @@
   },
   {
     "group": "",
-    "position": 27,
+    "position": 28,
     "team": "Paraguay",
     "teamSlug": "paraguay",
     "played": 2,
@@ -379,7 +393,7 @@
   },
   {
     "group": "",
-    "position": 28,
+    "position": 29,
     "team": "Algeria",
     "teamSlug": "algeria",
     "played": 2,
@@ -393,7 +407,7 @@
   },
   {
     "group": "",
-    "position": 29,
+    "position": 30,
     "team": "Scotland",
     "teamSlug": "scotland",
     "played": 3,
@@ -407,7 +421,7 @@
   },
   {
     "group": "",
-    "position": 30,
+    "position": 31,
     "team": "Uruguay",
     "teamSlug": "uruguay",
     "played": 2,
@@ -421,7 +435,7 @@
   },
   {
     "group": "",
-    "position": 31,
+    "position": 32,
     "team": "Cape Verde Islands",
     "teamSlug": "cape-verde",
     "played": 2,
@@ -435,7 +449,7 @@
   },
   {
     "group": "",
-    "position": 32,
+    "position": 33,
     "team": "Iran",
     "teamSlug": "iran",
     "played": 2,
@@ -449,7 +463,7 @@
   },
   {
     "group": "",
-    "position": 33,
+    "position": 34,
     "team": "Belgium",
     "teamSlug": "belgium",
     "played": 2,
@@ -463,7 +477,7 @@
   },
   {
     "group": "",
-    "position": 34,
+    "position": 35,
     "team": "Congo DR",
     "teamSlug": "dr-congo",
     "played": 2,
@@ -472,20 +486,6 @@
     "lost": 1,
     "goalsFor": 1,
     "goalsAgainst": 2,
-    "goalDifference": -1,
-    "points": 1
-  },
-  {
-    "group": "",
-    "position": 35,
-    "team": "Ecuador",
-    "teamSlug": "ecuador",
-    "played": 2,
-    "won": 0,
-    "draw": 1,
-    "lost": 1,
-    "goalsFor": 0,
-    "goalsAgainst": 1,
     "goalDifference": -1,
     "points": 1
   },
@@ -534,20 +534,6 @@
   {
     "group": "",
     "position": 39,
-    "team": "Curaçao",
-    "teamSlug": "curacao",
-    "played": 2,
-    "won": 0,
-    "draw": 1,
-    "lost": 1,
-    "goalsFor": 1,
-    "goalsAgainst": 7,
-    "goalDifference": -6,
-    "points": 1
-  },
-  {
-    "group": "",
-    "position": 40,
     "team": "Qatar",
     "teamSlug": "qatar",
     "played": 3,
@@ -556,6 +542,20 @@
     "lost": 2,
     "goalsFor": 2,
     "goalsAgainst": 10,
+    "goalDifference": -8,
+    "points": 1
+  },
+  {
+    "group": "",
+    "position": 40,
+    "team": "Curaçao",
+    "teamSlug": "curacao",
+    "played": 3,
+    "won": 0,
+    "draw": 1,
+    "lost": 2,
+    "goalsFor": 1,
+    "goalsAgainst": 9,
     "goalDifference": -8,
     "points": 1
   },
