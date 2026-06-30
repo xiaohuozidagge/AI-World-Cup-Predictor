@@ -1,11 +1,11 @@
 {
-  "lastSync": "2026-06-30T17:31:02.011Z",
+  "lastSync": "2026-06-30T22:53:22.766Z",
   "summary": {
     "matchesFetched": 104,
     "standingsRowsFetched": 48,
     "teamsFetched": 48,
-    "finishedMatches": 76,
-    "scheduledMatches": 27,
+    "finishedMatches": 77,
+    "scheduledMatches": 26,
     "liveMatches": 1,
     "unmatchedMatches": 15,
     "errors": []
