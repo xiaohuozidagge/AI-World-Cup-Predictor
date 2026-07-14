@@ -2475,7 +2475,7 @@
     "id": "fdo-537387",
     "sourceId": 537387,
     "source": "football-data.org",
-    "sourceUpdatedAt": "2026-07-14T19:22:28Z",
+    "sourceUpdatedAt": "2026-07-14T20:38:00Z",
     "slug": "france-vs-spain",
     "matchNumber": null,
     "stage": "Semi-finals",
@@ -2488,7 +2488,7 @@
     "teamBSlug": "spain",
     "actualScore": {
       "teamA": 0,
-      "teamB": 0
+      "teamB": 2
     },
     "rawStatus": "IN_PLAY",
     "rawStage": "SEMI_FINALS",
