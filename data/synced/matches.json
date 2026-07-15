@@ -2499,7 +2499,7 @@
     "id": "fdo-537388",
     "sourceId": 537388,
     "source": "football-data.org",
-    "sourceUpdatedAt": "2026-07-15T19:13:49Z",
+    "sourceUpdatedAt": "2026-07-15T20:33:58Z",
     "slug": "england-vs-argentina",
     "matchNumber": null,
     "stage": "Semi-finals",
@@ -2511,7 +2511,7 @@
     "teamASlug": "england",
     "teamBSlug": "argentina",
     "actualScore": {
-      "teamA": 0,
+      "teamA": 1,
       "teamB": 0
     },
     "rawStatus": "IN_PLAY",
