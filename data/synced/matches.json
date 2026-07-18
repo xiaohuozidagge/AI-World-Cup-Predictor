@@ -2523,22 +2523,23 @@
     "id": "fdo-537389",
     "sourceId": 537389,
     "source": "football-data.org",
-    "sourceUpdatedAt": "2026-07-18T22:23:36Z",
+    "sourceUpdatedAt": "2026-07-18T23:08:00Z",
     "slug": "france-vs-england",
     "matchNumber": null,
     "stage": "Third-place Play-off",
     "date": "2026-07-18",
     "utcDate": "2026-07-18T21:00:00Z",
-    "status": "live",
+    "status": "finished",
     "teamA": "France",
     "teamB": "England",
     "teamASlug": "france",
     "teamBSlug": "england",
     "actualScore": {
-      "teamA": 2,
-      "teamB": 4
+      "teamA": 4,
+      "teamB": 6
     },
-    "rawStatus": "IN_PLAY",
+    "winner": "AWAY_TEAM",
+    "rawStatus": "FINISHED",
     "rawStage": "THIRD_PLACE",
     "predictionSlug": "france-vs-england-prediction"
   },
