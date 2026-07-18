@@ -2523,7 +2523,7 @@
     "id": "fdo-537389",
     "sourceId": 537389,
     "source": "football-data.org",
-    "sourceUpdatedAt": "2026-07-18T21:24:48Z",
+    "sourceUpdatedAt": "2026-07-18T22:23:36Z",
     "slug": "france-vs-england",
     "matchNumber": null,
     "stage": "Third-place Play-off",
@@ -2535,8 +2535,8 @@
     "teamASlug": "france",
     "teamBSlug": "england",
     "actualScore": {
-      "teamA": 0,
-      "teamB": 2
+      "teamA": 2,
+      "teamB": 4
     },
     "rawStatus": "IN_PLAY",
     "rawStage": "THIRD_PLACE",
