@@ -2547,13 +2547,13 @@
     "id": "fdo-537390",
     "sourceId": 537390,
     "source": "football-data.org",
-    "sourceUpdatedAt": "2026-07-19T21:55:36Z",
+    "sourceUpdatedAt": "2026-07-19T22:25:01Z",
     "slug": "spain-vs-argentina",
     "matchNumber": null,
     "stage": "Final",
     "date": "2026-07-19",
     "utcDate": "2026-07-19T19:00:00Z",
-    "status": "scheduled",
+    "status": "finished",
     "teamA": "Spain",
     "teamB": "Argentina",
     "teamASlug": "spain",
@@ -2562,7 +2562,8 @@
       "teamA": 1,
       "teamB": 0
     },
-    "rawStatus": "LIVE",
+    "winner": "HOME_TEAM",
+    "rawStatus": "FINISHED",
     "rawStage": "FINAL",
     "predictionSlug": "spain-vs-argentina-prediction"
   }
