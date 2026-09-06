@@ -93,6 +93,9 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <script async="async" data-cfasync="false" src="https://servicessitclaims.com/bd622784d68115f3cb961983a0aa445c/invoke.js"></script>
+<div id="container-bd622784d68115f3cb961983a0aa445c"></div>
+
       </body>
     </html>
   )
