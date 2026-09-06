@@ -141,12 +141,10 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <Header />
 
-        <main className="flex-1">{children}</main>
-
-        <Footer />
-
-        {/* Adsterra native advertisement */}
-        <div id="container-bd622784d68115f3cb961983a0aa445c" />
+        {/* Adsterra advertisement */}
+        <div className="mx-auto w-full max-w-7xl px-4 py-4">
+          <div id="container-bd622784d68115f3cb961983a0aa445c" />
+        </div>
 
         <Script
           id="adsterra-native-ad"
@@ -154,6 +152,10 @@ export default function RootLayout({
           data-cfasync="false"
           strategy="afterInteractive"
         />
+
+        <main className="flex-1">{children}</main>
+
+        <Footer />
       </body>
     </html>
   )
