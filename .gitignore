@@ -24,3 +24,9 @@ npm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+cloudflare-env.d.ts
+
+# cloudflare
+.dev.vars
+.wrangler/
+.open-next/
