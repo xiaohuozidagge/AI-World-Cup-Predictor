@@ -14,9 +14,12 @@
 
 # debug
 npm-debug.log*
+.dev-server.log
 
 # local env files
+.env
 .env*.local
+.env.sync
 
 # vercel
 .vercel
@@ -28,5 +31,7 @@ cloudflare-env.d.ts
 
 # cloudflare
 .dev.vars
+.dev.vars.*
 .wrangler/
+.wrangler-dry-run/
 .open-next/

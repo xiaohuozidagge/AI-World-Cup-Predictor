@@ -46,6 +46,15 @@ export default async function Image({
           color: "white",
         }}
       >
+        {/* Brand header */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, marginBottom: 24 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ fontSize: 40 }}>⚽</span>
+            <span style={{ fontSize: 30, fontWeight: 700, color: "#16a34a" }}>AI PREDICTOR</span>
+          </div>
+          <span style={{ fontSize: 20, opacity: 0.8 }}>World Cup 2026 Match Prediction</span>
+        </div>
+
         {/* VS Bar */}
         <div style={{ display: "flex", alignItems: "center", gap: 32, marginBottom: 32 }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
@@ -113,6 +122,7 @@ function defaultOG() {
           color: "white",
         }}
       >
+        <span style={{ fontSize: 32, fontWeight: 700, opacity: 0.9, marginBottom: 16 }}>AI PREDICTOR</span>
         <h1 style={{ fontSize: 64, fontWeight: 900, textAlign: "center" }}>World Cup Predictions 2026</h1>
       </div>
     ),

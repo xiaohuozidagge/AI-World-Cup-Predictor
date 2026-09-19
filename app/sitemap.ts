@@ -2,13 +2,18 @@ import type { MetadataRoute } from "next"
 import { matches } from "@/data/matches"
 import { teams } from "@/data/teams"
 import { SITE_URL } from "@/lib/constants"
+import { getClubsForSitemap } from "@/lib/football/club-queries"
+import { getMatchesForSitemap, matchSitemapPriority } from "@/lib/football/match-queries"
+import { buildMatchUrl } from "@/lib/football/match-url"
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_URL
 
   const staticRoutes = [
     { url: baseUrl, lastModified: "2026-06-11", changeFrequency: "daily" as const, priority: 1 },
     { url: `${baseUrl}/predictions`, lastModified: "2026-06-11", changeFrequency: "daily" as const, priority: 0.9 },
+    { url: `${baseUrl}/champions-league`, lastModified: "2026-09-19", changeFrequency: "daily" as const, priority: 0.8 },
+    { url: `${baseUrl}/premier-league`, lastModified: "2026-09-19", changeFrequency: "daily" as const, priority: 0.8 },
     { url: `${baseUrl}/teams`, lastModified: "2026-06-11", changeFrequency: "weekly" as const, priority: 0.8 },
     { url: `${baseUrl}/schedule`, lastModified: "2026-06-11", changeFrequency: "weekly" as const, priority: 0.8 },
     { url: `${baseUrl}/winner-predictions`, lastModified: "2026-06-11", changeFrequency: "weekly" as const, priority: 0.9 },
@@ -42,5 +47,67 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  return [...staticRoutes, ...matchRoutes, ...teamRoutes]
+  // Club hub + detail pages. URLs come from Supabase (never hardcoded). On a DB
+  // failure getClubsForSitemap returns [] so the sitemap still renders.
+  let clubRoutes: MetadataRoute.Sitemap = []
+  try {
+    const clubs = await getClubsForSitemap()
+    clubRoutes = clubs.map((c) => {
+      let lastModified = "2026-09-19"
+      if (c.lastModified) {
+        const d = new Date(c.lastModified)
+        if (!Number.isNaN(d.getTime())) lastModified = d.toISOString().slice(0, 10)
+      }
+      return {
+        url: `${baseUrl}/clubs/${c.slug}`,
+        lastModified,
+        changeFrequency: "daily" as const,
+        priority: 0.7,
+      }
+    })
+  } catch {
+    // DB unavailable — still ship the hub + static routes below.
+  }
+
+  // Match directory pages (fixed) plus every match detail URL, all from Supabase.
+  const matchDirectoryRoutes = [
+    { url: `${baseUrl}/premier-league/matches`, lastModified: "2026-09-19", changeFrequency: "daily" as const, priority: 0.8 },
+    { url: `${baseUrl}/champions-league/matches`, lastModified: "2026-09-19", changeFrequency: "daily" as const, priority: 0.8 },
+  ]
+
+  const matchDetailRoutes: MetadataRoute.Sitemap = []
+  try {
+    const seen = new Set<string>()
+    for (const m of await getMatchesForSitemap()) {
+      const url = `${baseUrl}${buildMatchUrl(
+        { providerFixtureId: m.providerFixtureId, homeTeam: { slug: m.homeTeamSlug }, awayTeam: { slug: m.awayTeamSlug } },
+        m.competitionSlug,
+      )}`
+      if (seen.has(url)) continue
+      seen.add(url)
+      let lastModified = "2026-09-19"
+      if (m.lastModified) {
+        const d = new Date(m.lastModified)
+        if (!Number.isNaN(d.getTime())) lastModified = d.toISOString().slice(0, 10)
+      }
+      matchDetailRoutes.push({
+        url,
+        lastModified,
+        changeFrequency: "daily",
+        priority: matchSitemapPriority(m.status),
+      })
+    }
+  } catch {
+    // DB unavailable — still ship the directories + static routes below.
+  }
+
+  return [
+    ...staticRoutes,
+    ...matchRoutes,
+    ...teamRoutes,
+    { url: `${baseUrl}/clubs`, lastModified: "2026-09-19", changeFrequency: "daily" as const, priority: 0.8 },
+    ...clubRoutes,
+    ...matchDirectoryRoutes,
+    ...matchDetailRoutes,
+  ]
 }

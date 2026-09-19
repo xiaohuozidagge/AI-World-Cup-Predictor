@@ -4,9 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export const metadata: Metadata = {
   title: "Prediction Methodology — How Our AI Model Works",
-  description: "Learn how AI World Cup Predictions generates match forecasts. Our methodology covers data sources, model architecture, probability calculation, and accuracy tracking.",
+  description: "Learn how AI Predictor generates match forecasts. Our methodology covers data sources, model architecture, probability calculation, and accuracy tracking.",
   openGraph: {
-    title: "Prediction Methodology — AI World Cup Predictions 2026",
+    title: "Prediction Methodology — AI Predictor",
     description: "Transparent explanation of our AI prediction methodology: data sources, model factors, probability calculation, and accuracy measurement.",
   },
 }

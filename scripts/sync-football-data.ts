@@ -2,20 +2,9 @@
 import { writeFileSync, mkdirSync, existsSync, readFileSync } from "fs"
 import { join } from "path"
 
-// Load .env.local (tsx doesn't auto-load dotenv)
-const ROOT = process.cwd()
-for (const envFile of [".env.local", ".env"]) {
-  const envPath = join(ROOT, envFile)
-  if (existsSync(envPath)) {
-    for (const line of readFileSync(envPath, "utf-8").split("\n")) {
-      const eq = line.indexOf("=")
-      if (eq > 0 && !line.trimStart().startsWith("#")) {
-        const key = line.slice(0, eq).trim()
-        if (!process.env[key]) process.env[key] = line.slice(eq + 1).trim()
-      }
-    }
-  }
-}
+import { loadSyncEnv } from "./load-sync-env"
+
+loadSyncEnv()
 
 import { normalizeMatch, normalizeStandings, normalizeTeam } from "../lib/football-data/normalize"
 import type { SyncedMatch, SyncedStanding, SyncedTeam } from "../lib/football-data/normalize"
@@ -39,7 +28,7 @@ interface SyncSummary {
 async function main() {
   const apiKey = process.env.FOOTBALL_DATA_API_KEY
   if (!apiKey) {
-    console.error("ERROR: FOOTBALL_DATA_API_KEY is not set. Create a .env.local file with your API key.")
+    console.error("ERROR: FOOTBALL_DATA_API_KEY is not set. Create a .env.sync file with your API key.")
     process.exit(existsSync(join(DATA_DIR, "matches.json")) ? 0 : 1)
   }
 

@@ -77,13 +77,58 @@ export function sportsEventJsonLd(match: {
   }
 }
 
+export function footballMatchJsonLd(match: {
+  name: string
+  startDate: string
+  eventStatus: string | null
+  url: string
+  homeTeam: { name: string; url?: string } | null
+  awayTeam: { name: string; url?: string } | null
+  venue?: { name: string; city: string } | null
+}) {
+  const homeTeam = match.homeTeam
+    ? {
+        "@type": "SportsTeam",
+        name: match.homeTeam.name,
+        ...(match.homeTeam.url ? { url: match.homeTeam.url } : {}),
+      }
+    : undefined
+  const awayTeam = match.awayTeam
+    ? {
+        "@type": "SportsTeam",
+        name: match.awayTeam.name,
+        ...(match.awayTeam.url ? { url: match.awayTeam.url } : {}),
+      }
+    : undefined
+  const location = match.venue
+    ? {
+        "@type": "Place",
+        name: match.venue.name,
+        address: { "@type": "PostalAddress", addressLocality: match.venue.city },
+      }
+    : undefined
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    name: match.name,
+    sport: "Soccer",
+    startDate: match.startDate,
+    ...(match.eventStatus ? { eventStatus: match.eventStatus } : {}),
+    url: match.url,
+    ...(homeTeam ? { homeTeam } : {}),
+    ...(awayTeam ? { awayTeam } : {}),
+    ...(location ? { location } : {}),
+  }
+}
+
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "AI World Cup Predictions",
+    name: "AI Predictor",
     url: "https://aipredictor.world",
-    description: "AI-powered predictions and analysis for the 2026 FIFA World Cup.",
+    description: "AI-powered football predictions, match forecasts and data-driven analysis for major football competitions.",
     foundingDate: "2025",
     contactPoint: {
       "@type": "ContactPoint",

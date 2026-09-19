@@ -21,7 +21,7 @@ export default function Image() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
           <span style={{ fontSize: 48 }}>⚽</span>
-          <span style={{ color: "white", fontSize: 36, fontWeight: 700, opacity: 0.9 }}>AI WORLD CUP PREDICTIONS</span>
+          <span style={{ color: "white", fontSize: 36, fontWeight: 700, opacity: 0.9 }}>AI PREDICTOR</span>
         </div>
         <h1 style={{
           color: "white",
@@ -32,7 +32,7 @@ export default function Image() {
           marginBottom: 24,
           maxWidth: 900,
         }}>
-          World Cup Predictions 2026
+          AI Football Predictions
         </h1>
         <p style={{
           color: "white",
@@ -42,7 +42,7 @@ export default function Image() {
           maxWidth: 700,
           lineHeight: 1.4,
         }}>
-          AI-powered match forecasts, win probabilities, and predicted scores for every FIFA World Cup 2026 fixture
+          Data-Driven Match Forecasts
         </p>
       </div>
     ),

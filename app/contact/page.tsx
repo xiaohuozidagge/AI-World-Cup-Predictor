@@ -4,11 +4,11 @@ import { Mail, Globe, MessageCircle } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export const metadata: Metadata = {
-  title: "Contact — AI World Cup Predictions 2026",
-  description: "Contact AI World Cup Predictions. Report errors, ask about our methodology, or get in touch with our team.",
+  title: "Contact",
+  description: "Contact AI Predictor. Report errors, ask about our methodology, or get in touch with our team.",
   openGraph: {
-    title: "Contact — AI World Cup Predictions 2026",
-    description: "Get in touch with the AI World Cup Predictions team.",
+    title: "Contact AI Predictor",
+    description: "Get in touch with the AI Predictor team.",
   },
 }
 

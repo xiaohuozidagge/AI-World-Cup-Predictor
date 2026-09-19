@@ -21,30 +21,29 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default:
-      "AI World Cup Predictions 2026 — Match Forecasts & Winner Odds",
-    template: "%s | AI World Cup Predictions 2026",
+    default: "AI Football Predictions & Match Forecasts | AI Predictor",
+    template: "%s | AI Predictor",
   },
 
   description:
-    "AI-powered World Cup 2026 predictions. Get match forecasts, win probabilities, predicted scores, team analysis, and winner odds for every FIFA World Cup 2026 fixture.",
+    "Explore AI-powered football predictions, win probabilities and predicted scores for the Champions League, Premier League and major international competitions.",
 
   keywords: [
-    "World Cup Predictions 2026",
-    "World Cup 2026",
-    "FIFA World Cup predictions",
     "AI football predictions",
-    "World Cup match forecast",
-    "World Cup winner odds",
+    "football match forecasts",
+    "Champions League predictions",
+    "Premier League predictions",
+    "World Cup predictions",
+    "win probability",
   ],
 
   authors: [
     {
-      name: "AI World Cup Predictions",
+      name: "AI Predictor",
     },
   ],
 
-  creator: "AI World Cup Predictions",
+  creator: "AI Predictor",
 
   metadataBase: new URL(SITE_URL),
 
@@ -56,17 +55,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: SITE_NAME,
-    title:
-      "AI World Cup Predictions 2026 — Match Forecasts & Winner Odds",
+    title: "AI Football Predictions & Match Forecasts | AI Predictor",
     description:
-      "AI-powered World Cup 2026 predictions. Get match forecasts, win probabilities, predicted scores, team analysis, and winner odds.",
+      "Explore AI-powered football predictions, win probabilities and predicted scores for the Champions League, Premier League and major international competitions.",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "AI World Cup Predictions 2026",
+    title: "AI Predictor",
     description:
-      "AI-powered World Cup 2026 predictions. Match forecasts, win probabilities, predicted scores, and winner odds.",
+      "AI-powered football predictions, match forecasts and data-driven analysis for major football competitions.",
   },
 
   robots: {
@@ -93,7 +91,7 @@ export default function RootLayout({
     name: SITE_NAME,
     url: SITE_URL,
     description:
-      "AI-powered predictions and analysis for the 2026 FIFA World Cup.",
+      "AI-powered football predictions, match forecasts and data-driven analysis for major football competitions.",
     potentialAction: {
       "@type": "SearchAction",
       target: `${SITE_URL}/predictions?search={search_term_string}`,

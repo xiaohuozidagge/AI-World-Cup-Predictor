@@ -4,10 +4,10 @@ import { Database, Globe, RefreshCw, Shield } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export const metadata: Metadata = {
-  title: "Data Sources — AI World Cup Predictions 2026",
-  description: "Data sources used by AI World Cup Predictions: FIFA rankings, match results, squad data, and tournament history for World Cup 2026 analysis.",
+  title: "Data Sources",
+  description: "Data sources used by AI Predictor: FIFA rankings, match results, squad data, and tournament history for World Cup 2026 analysis.",
   openGraph: {
-    title: "Data Sources — AI World Cup Predictions 2026",
+    title: "Data Sources — AI Predictor",
     description: "The data powering our World Cup 2026 predictions.",
   },
 }

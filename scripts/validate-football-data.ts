@@ -6,17 +6,44 @@ const DATA_DIR = join(import.meta.dirname || __dirname, "..", "data", "synced")
 const ROOT = join(import.meta.dirname || __dirname, "..")
 const errors: string[] = []
 
-// 1. API key is not committed
-const envFiles = [".env", ".env.local", ".env.production"]
-for (const f of envFiles) {
+// 1. Server secrets are not baked into the Next.js build.
+// Next auto-loads .env / .env.local / .env.production at build time and
+// OpenNext then bundles those vars into the Worker — so none of them may hold
+// a real secret. Secrets live only in .env.sync (gitignored).
+const SECRET_NAMES = ["FOOTBALL_DATA_API_KEY", "SUPABASE_SECRET_KEY"]
+const PLACEHOLDERS = ["", "your_api_key_here", "your-secret-key-here", "replace-me"]
+
+function hasRealSecret(content: string, name: string): boolean {
+  const prefix = `${name}=`
+  for (const line of content.split(/\r?\n/)) {
+    if (!line.trim().startsWith(prefix)) continue
+    const value = line.slice(line.indexOf("=") + 1).trim().replace(/^["']|["']$/g, "")
+    if (value && !PLACEHOLDERS.includes(value.toLowerCase())) return true
+  }
+  return false
+}
+
+const nextAutoLoaded = [".env", ".env.local", ".env.production"]
+for (const f of nextAutoLoaded) {
   const p = join(ROOT, f)
-  if (existsSync(p)) {
-    const content = readFileSync(p, "utf-8")
-    if (content.includes("FOOTBALL_DATA_API_KEY=") && !content.includes("your_api_key_here")) {
-      // Real key exists — check it's not staged
-      // This is a soft check — in CI, env files shouldn't exist
-      console.log(`  ⚠ ${f} exists with API key — ensure it's in .gitignore`)
+  if (!existsSync(p)) continue
+  const content = readFileSync(p, "utf-8")
+  for (const name of SECRET_NAMES) {
+    if (hasRealSecret(content, name)) {
+      errors.push(`${f} still contains a real ${name} — move it to .env.sync (it would be baked into .next/.open-next)`)
     }
+  }
+}
+
+const syncEnvPath = join(ROOT, ".env.sync")
+if (existsSync(syncEnvPath)) {
+  const content = readFileSync(syncEnvPath, "utf-8")
+  const hasKey = SECRET_NAMES.some((name) => hasRealSecret(content, name))
+  const gitignore = existsSync(join(ROOT, ".gitignore"))
+    ? readFileSync(join(ROOT, ".gitignore"), "utf-8")
+    : ""
+  if (hasKey && !gitignore.split(/\r?\n/).some((l) => l.trim() === ".env.sync")) {
+    errors.push(".env.sync holds a real key but is not listed in .gitignore")
   }
 }
 

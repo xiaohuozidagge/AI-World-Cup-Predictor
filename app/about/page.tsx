@@ -4,11 +4,11 @@ import { Trophy, Users, Globe, Shield } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export const metadata: Metadata = {
-  title: "About AI World Cup Predictions — Our Story",
-  description: "About AI World Cup Predictions 2026. Learn about our team, our mission, and why we built the most comprehensive AI-powered World Cup prediction platform.",
+  title: "About Us",
+  description: "About AI Predictor. Learn about our team, our mission, and why we built a comprehensive AI-powered football prediction platform.",
   openGraph: {
-    title: "About AI World Cup Predictions",
-    description: "Learn about the team behind AI World Cup Predictions 2026 and our mission to deliver data-driven match analysis.",
+    title: "About AI Predictor",
+    description: "Learn about the team behind AI Predictor and our mission to deliver data-driven match analysis.",
   },
 }
 
@@ -29,7 +29,7 @@ export default function AboutPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground leading-relaxed">
-            <p>We built AI World Cup Predictions to bring transparency and data-driven analysis to World Cup forecasting. Traditional punditry relies on narrative and reputation — we wanted to build something that grounds predictions in measurable data: team form, FIFA rankings, player availability, and historical tournament patterns.</p>
+            <p>We built AI Predictor to bring transparency and data-driven analysis to football forecasting. Traditional punditry relies on narrative and reputation — we wanted to build something that grounds predictions in measurable data: team form, FIFA rankings, player availability, and historical tournament patterns.</p>
             <p className="mt-3">Every prediction on this site is backed by a documented methodology. We don&apos;t claim to predict the future — we provide probabilistic estimates that help fans understand the likely outcomes of every match.</p>
           </CardContent>
         </Card>
