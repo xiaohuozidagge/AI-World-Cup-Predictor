@@ -16,13 +16,13 @@ import { runCronSync, type CronEnv } from "../lib/football-data/cron-sync"
 export type CronRunner = (env: CronEnv) => Promise<unknown>
 
 export type FetchHandler = {
-  fetch: NonNullable<ExportedHandler<CloudflareEnv>["fetch"]>
+  fetch: NonNullable<ExportedHandler<Env>["fetch"]>
 }
 
 export function createWorker(
   handler: FetchHandler,
   run?: CronRunner,
-): ExportedHandler<CloudflareEnv> {
+): ExportedHandler<Env> {
   const defaultRun: CronRunner = (env) => runCronSync(env)
 
   return {

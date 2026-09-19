@@ -31,7 +31,7 @@ test("createWorker wires scheduled to ctx.waitUntil with the injected cron run",
     return { ok: true }
   }
 
-  const env = { SUPABASE_SECRET_KEY: "s" } as unknown as CloudflareEnv
+  const env = { SUPABASE_SECRET_KEY: "s" } as unknown as Env
   const worker = createWorker({ fetch: async () => new Response("ok") }, run)
   await worker.scheduled!({} as ScheduledController, env, ctx)
 
